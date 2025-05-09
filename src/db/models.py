@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from src.db.database import Base
+from datetime import datetime
 
 class Product(Base):
     __tablename__ = "products"
@@ -17,6 +18,7 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     role = Column(String, default="user")  # Added role field
+    permissions = Column(String, default="")  # Fine-grained permissions
     sales = relationship("Sale", back_populates="user")
 
 class Inventory(Base):
@@ -25,6 +27,7 @@ class Inventory(Base):
     warehouse = Column(String, index=True)
     product_id = Column(Integer, ForeignKey("products.id"))
     stock = Column(Integer)
+    expiry_date = Column(DateTime, nullable=True)  # Add expiry_date field
     product = relationship("Product", back_populates="inventory_items")
 
 class Sale(Base):
@@ -48,3 +51,13 @@ class Notification(Base):
     id = Column(Integer, primary_key=True, index=True)
     message = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+class TransactionHistory(Base):
+    __tablename__ = "transaction_history"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer)
+    action = Column(String)
+    entity = Column(String)
+    entity_id = Column(Integer)
+    details = Column(String)
+    timestamp = Column(DateTime, default=datetime.utcnow)

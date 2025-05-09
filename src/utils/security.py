@@ -42,3 +42,12 @@ def require_role(role: str):
             raise HTTPException(status_code=403, detail="Insufficient permissions")
         return user
     return role_checker
+
+def require_permission(permission: str):
+    def permission_checker(user = Depends(get_current_user)):
+        # Example: user.permissions is a comma-separated string
+        user_permissions = getattr(user, "permissions", "").split(",")
+        if permission not in user_permissions and user.role != "admin":
+            raise HTTPException(status_code=403, detail="Insufficient permissions")
+        return user
+    return permission_checker

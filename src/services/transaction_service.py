@@ -1,7 +1,5 @@
-from src.db import models
 from sqlalchemy.orm import Session
-from datetime import datetime
-from src.services.transaction_service import log_transaction
+from src.db import models
 
 def log_transaction(db: Session, user_id: int, action: str, entity: str, entity_id: int, details: str = ""):
     tx = models.TransactionHistory(

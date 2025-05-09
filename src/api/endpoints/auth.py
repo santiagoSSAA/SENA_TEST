@@ -15,4 +15,33 @@ def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
     access_token = create_access_token({"sub": db_user.username, "user_id": db_user.id, "role": getattr(db_user, "role", "user")})
     return {"access_token": access_token, "token_type": "bearer"}
 
+@router.get("/permissions/{user_id}", response_model=list)
+def get_user_permissions(user_id: int, db: Session = Depends(get_db), user=Depends(require_role("admin"))):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user.permissions.split(",") if db_user.permissions else []
+
+@router.post("/permissions/{user_id}/add")
+def add_permission(user_id: int, permission: str, db: Session = Depends(get_db), user=Depends(require_role("admin"))):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    perms = set(db_user.permissions.split(",")) if db_user.permissions else set()
+    perms.add(permission)
+    db_user.permissions = ",".join(perms)
+    db.commit()
+    return {"permissions": db_user.permissions.split(",")}
+
+@router.post("/permissions/{user_id}/remove")
+def remove_permission(user_id: int, permission: str, db: Session = Depends(get_db), user=Depends(require_role("admin"))):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    perms = set(db_user.permissions.split(",")) if db_user.permissions else set()
+    perms.discard(permission)
+    db_user.permissions = ",".join(perms)
+    db.commit()
+    return {"permissions": db_user.permissions.split(",")}
+
 # Role/permission management endpoints can be expanded as needed.

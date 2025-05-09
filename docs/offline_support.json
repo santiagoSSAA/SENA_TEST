@@ -1,0 +1,10 @@
+{
+  "offline_support": {
+    "descripcion": "El backend expone endpoints para sincronización de datos (descarga y subida de cambios). Se recomienda usar endpoints REST como /sync/download y /sync/upload para que el cliente móvil o web pueda sincronizar datos cuando recupere conexión.",
+    "endpoints": [
+      {"path": "/sync/download", "method": "GET", "descripcion": "Descargar datos actualizados para uso offline."},
+      {"path": "/sync/upload", "method": "POST", "descripcion": "Subir cambios realizados offline para sincronizarlos con el servidor."}
+    ],
+    "notas": "La lógica de resolución de conflictos y almacenamiento local debe implementarse en el cliente. El backend solo recibe y entrega datos en formato JSON."
+  }
+}

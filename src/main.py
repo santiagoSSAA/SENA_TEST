@@ -10,6 +10,8 @@ from src.api.endpoints.reports import router as reports_router
 from src.api.endpoints.invoices import router as invoices_router
 from src.api.endpoints.notifications import router as notifications_router
 from src.api.endpoints.auth import router as auth_router
+from src.api.endpoints.transactions import router as transactions_router
+from src.api.endpoints.sync import router as sync_router
 from src.utils.error_handler import global_exception_handler
 
 app = FastAPI()
@@ -22,6 +24,8 @@ app.include_router(reports_router)
 app.include_router(invoices_router)
 app.include_router(notifications_router)
 app.include_router(auth_router)
+app.include_router(transactions_router)
+app.include_router(sync_router)
 
 # CORS (optional, for frontend integration)
 app.add_middleware(

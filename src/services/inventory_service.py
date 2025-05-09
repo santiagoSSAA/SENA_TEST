@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from src.db import models
+from datetime import datetime, timedelta
 
 def get_inventory(db: Session):
     return db.query(models.Inventory).all()
@@ -55,6 +56,8 @@ def transfer_inventory(db, warehouse_from, warehouse_to, product_id, quantity):
 def get_inventory_alerts(db: Session):
     alerts = []
     threshold = 10  # Example threshold
+    expiry_days = 7  # Alert if product expires in 7 days
+    now = datetime.utcnow()
     for item in db.query(models.Inventory).all():
         if item.stock <= threshold:
             alerts.append({
@@ -63,5 +66,16 @@ def get_inventory_alerts(db: Session):
                 "warehouse": item.warehouse,
                 "stock": item.stock,
                 "alert": "Low stock"
+            })
+        # Expiry logic (assume item has expiry_date field)
+        expiry_date = getattr(item, "expiry_date", None)
+        if expiry_date and expiry_date - now <= timedelta(days=expiry_days):
+            alerts.append({
+                "inventory_id": item.id,
+                "product_id": item.product_id,
+                "warehouse": item.warehouse,
+                "stock": item.stock,
+                "expiry_date": expiry_date,
+                "alert": "Product near expiry"
             })
     return alerts

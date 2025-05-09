@@ -1,0 +1,29 @@
+{
+  "manual_usuario": {
+    "titulo": "Manual de Usuario",
+    "contenido": [
+      "Cómo iniciar sesión y navegar por la aplicación.",
+      "Cómo consultar productos, ventas, inventario, informes y notificaciones.",
+      "Cómo exportar datos y filtrar información avanzada.",
+      "Cómo interpretar alertas y notificaciones."
+    ]
+  },
+  "manual_despliegue": {
+    "titulo": "Manual de Despliegue",
+    "contenido": [
+      "Requisitos del sistema (Python, Docker, etc.)",
+      "Pasos para instalar dependencias y ejecutar el backend y frontend.",
+      "Configuración de variables de entorno y base de datos.",
+      "Comandos para ejecutar pruebas y despliegue en producción."
+    ]
+  },
+  "manual_desarrollador": {
+    "titulo": "Manual de Desarrollador",
+    "contenido": [
+      "Estructura del proyecto y convenciones de código.",
+      "Cómo agregar nuevos endpoints y servicios.",
+      "Buenas prácticas de seguridad y pruebas.",
+      "Cómo contribuir y documentar cambios."
+    ]
+  }
+}

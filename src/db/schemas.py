@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 class ProductBase(BaseModel):
     name: str
@@ -47,6 +48,7 @@ class InventoryBase(BaseModel):
     warehouse: str
     product_id: int
     stock: int
+    expiry_date: Optional[datetime] = None
 
 class InventoryCreate(InventoryBase):
     pass
@@ -77,5 +79,16 @@ class NotificationCreate(NotificationBase):
 
 class NotificationOut(NotificationBase):
     id: int
+    class Config:
+        orm_mode = True
+
+class TransactionHistoryOut(BaseModel):
+    id: int
+    user_id: int
+    action: str
+    entity: str
+    entity_id: int
+    details: Optional[str]
+    timestamp: datetime
     class Config:
         orm_mode = True
