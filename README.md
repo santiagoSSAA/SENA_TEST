@@ -38,7 +38,7 @@ Follow these steps to set up and run the project in a Python virtual environment
 
 5. **Run the Application**
    ```powershell
-   python src/main.py
+   python -m uvicorn src.main:app --reload
    ```
 
 6. **Deactivate the Virtual Environment** (when done)

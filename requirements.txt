@@ -6,21 +6,21 @@ psycopg2-binary
 pydantic>=2.0.0
 
 # Security
-authlib==1.2.0
-bcrypt==4.0.1
+authlib
+bcrypt
 passlib[bcrypt]
 python-jose
 
 # Frontend communication
-requests==2.31.0
+requests
 
 # Testing
-pytest==7.3.1
-selenium==4.9.1
+pytest
+selenium
 
 # Linting and formatting
-black==23.3.0
-flake8==6.0.0
+black
+flake8
 
 # Export utilities
 pandas
