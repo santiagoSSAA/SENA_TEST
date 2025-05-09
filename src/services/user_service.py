@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from src.db import models
-from src.utils import hash_password  # Assuming hash_password is defined in src.utils
+from src.utils.security import hash_password
 
 def get_users(db: Session):
     return db.query(models.User).all()
