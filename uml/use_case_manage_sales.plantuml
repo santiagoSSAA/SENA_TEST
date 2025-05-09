@@ -1,0 +1,46 @@
+@startuml UseCaseDiagram_ManageSales
+
+' Define direction
+left to right direction
+
+' Define actors
+package "Actors" {
+    :Admin: as Admin
+    :User: as User
+    :System: as System
+}
+
+' Define use cases
+package "Sales Management" {
+    (Register Sale) as UC1
+    (Update Inventory After Sale) as UC2
+    (Generate Digital Receipt) as UC3
+    (View Sales History) as UC4
+}
+
+package "Analysis & Reporting" {
+    (Analyze Sales Trends) as UC5
+    (Export Sales Data to PDF/Excel) as UC6
+    (Visualize Sales Data with Graphs) as UC7
+    (Filter Sales by Period/Product) as UC8
+}
+
+' Relationships
+Admin --> UC1 : "Register new sale\nInput sale details"
+Admin --> UC2 : "Inventory auto-update\nStock deduction"
+Admin --> UC3 : "Generate and send receipt"
+Admin --> UC4 : "View and audit sales history"
+Admin --> UC5 : "Review analytics\nIdentify trends"
+Admin --> UC6 : "Export sales data\nCompliance/analysis"
+Admin --> UC7 : "View interactive graphs\nAnalyze visually"
+Admin --> UC8 : "Filter sales by period/product"
+
+User --> UC4 : "View personal sales history"
+User --> UC7 : "View and interact with graphs"
+User --> UC8 : "Filter and analyze own sales"
+
+System --> UC2 : "Auto-update inventory\nSync with sales"
+System --> UC3 : "Auto-generate digital receipt"
+System --> UC5 : "Automated trend analysis"
+
+@enduml

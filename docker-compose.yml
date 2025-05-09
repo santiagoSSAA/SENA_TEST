@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    container_name: sena_test_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+    environment:
+      - PYTHONUNBUFFERED=1
+  frontend:
+    build: ./frontend
+    container_name: sena_test_frontend
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    command: ["npm", "start"]
+    volumes:
+      - ./frontend:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true

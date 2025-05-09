@@ -1,0 +1,44 @@
+@startuml UseCaseDiagram_ManageInforms
+
+' Define direction
+left to right direction
+
+' Define actors
+package "Actors" {
+    :Admin: as Admin
+    :User: as User
+    :System: as System
+}
+
+' Define use cases
+package "Report Management" {
+    (Generate Custom Report) as UC1
+    (Schedule Automatic Reports) as UC2
+    (View Report History) as UC3
+    (Share Report with Stakeholders) as UC4
+}
+
+package "Data Visualization & Export" {
+    (Visualize Data with Graphs) as UC5
+    (Export Report to PDF/Excel) as UC6
+    (Filter Reports by Period/Criteria) as UC7
+}
+
+' Relationships
+Admin --> UC1 : "Create custom reports\nSelect data and format"
+Admin --> UC2 : "Schedule periodic reports\nAutomate delivery"
+Admin --> UC3 : "View and audit report history"
+Admin --> UC4 : "Share reports\nEmail or download"
+Admin --> UC5 : "View interactive graphs\nAnalyze visually"
+Admin --> UC6 : "Export reports\nCompliance/analysis"
+Admin --> UC7 : "Filter reports\nBy date or criteria"
+
+User --> UC3 : "View accessible reports"
+User --> UC5 : "View and interact with graphs"
+User --> UC7 : "Filter and analyze reports"
+
+System --> UC2 : "Automate report generation\nSend on schedule"
+System --> UC4 : "Auto-share reports\nTrigger on generation"
+System --> UC5 : "Aggregate and visualize data"
+
+@enduml

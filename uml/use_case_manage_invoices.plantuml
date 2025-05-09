@@ -1,0 +1,43 @@
+@startuml UseCaseDiagram_ManageInvoices
+
+' Define direction
+left to right direction
+
+' Define actors
+package "Actors" {
+    :Admin: as Admin
+    :User: as User
+    :System: as System
+}
+
+' Define use cases
+package "Invoice Management" {
+    (Create Invoice) as UC1
+    (Edit/Cancel Invoice) as UC2
+    (View Invoice History) as UC3
+    (Send Invoice to Customer) as UC4
+}
+
+package "Compliance & Reporting" {
+    (Export Invoices to PDF/Excel) as UC5
+    (Generate Accounting Reports) as UC6
+    (Automate Invoice Numbering) as UC7
+}
+
+' Relationships
+Admin --> UC1 : "Create new invoice\nInput sale/customer data"
+Admin --> UC2 : "Edit or cancel invoice\nCorrect errors"
+Admin --> UC3 : "View and audit invoice history"
+Admin --> UC4 : "Send invoice to customer\nEmail or print"
+Admin --> UC5 : "Export invoices\nCompliance/analysis"
+Admin --> UC6 : "Generate reports\nAccounting support"
+Admin --> UC7 : "Automate numbering\nEnsure uniqueness"
+
+User --> UC3 : "View received invoices"
+User --> UC4 : "Receive invoice\nDownload or print"
+
+System --> UC4 : "Auto-send invoice\nTrigger on creation"
+System --> UC5 : "Auto-export for backup"
+System --> UC7 : "Assign unique invoice number"
+
+@enduml

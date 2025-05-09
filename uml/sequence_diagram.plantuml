@@ -1,0 +1,73 @@
+@startuml SequenceDiagram_MainFlows
+
+' Sequence Diagram: Main System Interactions
+' This diagram illustrates the flow between users, the platform, and the system for key use cases.
+' Actors: Admin, User, System
+' Main objects: UI, API, Database, NotificationService
+
+actor Admin
+actor User
+' Note: Other roles (e.g., WarehouseManager) can be added as needed
+participant UI
+participant API
+participant Database
+participant NotificationService as NS
+
+== Product Sale & Invoice Flow ==
+Admin -> UI : Initiate Sale
+User -> UI : Initiate Sale
+UI -> API : Submit Sale Data
+API -> Database : Record Sale
+API -> Database : Update Inventory
+Database --> API : Confirm Update
+API -> NS : Generate Digital Receipt
+API -> NS : Generate Invoice Document
+NS -> Admin : Send Receipt & Invoice
+NS -> User : Send Receipt & Invoice
+API --> UI : Show Confirmation
+
+== Inventory Alert Flow ==
+Database -> API : Check Inventory Levels (scheduled)
+API -> NS : Trigger Alert if Low/Expiry
+NS -> Admin : Send Alert Notification
+
+== Report Generation & Analytics Flow ==
+Admin -> UI : Request Report/Analytics (with filters/export)
+UI -> API : Request Data/Analytics
+API -> Database : Query Data/Transaction History
+Database --> API : Return Data
+API -> UI : Generate/Show Report/Analytics (with filtering/export options)
+UI -> Admin : Display/Download Report/Analytics
+
+== User Authentication Flow ==
+User -> UI : Login
+Admin -> UI : Login
+UI -> API : Submit Credentials
+API -> Database : Validate User
+Database --> API : User Data/Status
+API --> UI : Auth Result (Success/Fail)
+UI -> User : Show Dashboard or Error
+UI -> Admin : Show Dashboard or Error
+
+== Product Management Flow ==
+Admin -> UI : Manage Products (Add/Update/Delete)
+UI -> API : Submit Product Changes
+API -> Database : Update Product Records
+Database --> API : Confirm Product Update
+API --> UI : Show Product Management Result
+
+== User Management Flow ==
+Admin -> UI : Manage Users (Add/Update/Delete)
+UI -> API : Submit User Changes
+API -> Database : Update User Records
+Database --> API : Confirm User Update
+API --> UI : Show User Management Result
+
+== Multi-Warehouse Inventory Flow ==
+Admin -> UI : Distribute Inventory to Sub-Warehouse
+UI -> API : Submit Distribution Data
+API -> Database : Update Main & Sub-Warehouse Inventory
+Database --> API : Confirm Distribution
+API --> UI : Show Distribution Result
+
+@enduml

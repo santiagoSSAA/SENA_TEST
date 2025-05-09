@@ -1,0 +1,45 @@
+@startuml UseCaseDiagram_ManageUsers
+
+' Define direction
+left to right direction
+
+' Define actors
+package "Actors" {
+    :Admin: as Admin
+    :User: as User
+    :System: as System
+}
+
+' Define use cases
+package "User Management" {
+    (Register New User) as UC1
+    (Edit User Profile) as UC2
+    (Assign Roles & Permissions) as UC3
+    (Deactivate/Activate User) as UC4
+    (View User List & Details) as UC5
+}
+
+package "Security & Access" {
+    (User Authentication) as UC6
+    (Password Reset/Recovery) as UC7
+    (Audit User Activity) as UC8
+}
+
+' Relationships
+Admin --> UC1 : "Register new users\nInput user data"
+Admin --> UC2 : "Edit user info\nUpdate profiles"
+Admin --> UC3 : "Assign roles\nManage permissions"
+Admin --> UC4 : "Deactivate/reactivate users"
+Admin --> UC5 : "View all users\nAccess details"
+Admin --> UC8 : "Audit user actions\nReview logs"
+
+User --> UC2 : "Edit own profile"
+User --> UC6 : "Login/logout"
+User --> UC7 : "Request password reset"
+User --> UC5 : "View own details"
+
+System --> UC6 : "Authenticate users\nValidate credentials"
+System --> UC7 : "Send reset instructions"
+System --> UC8 : "Log user activity"
+
+@enduml

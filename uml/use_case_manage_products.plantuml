@@ -1,0 +1,51 @@
+@startuml UseCaseDiagram_ManageProducts
+
+' Define direction
+left to right direction
+
+' Define actors
+package "Actors" {
+    :Admin: as Admin
+    :User: as User
+    :System: as System
+}
+
+' Define use cases
+package "Inventory Management" {
+    (Real-Time Inventory Update) as UC1
+    (Track Product Status) as UC2
+    (Receive Alerts for Expiry or Shortage) as UC3
+    (Generate Inventory Reports) as UC4
+}
+
+package "Data Management" {
+    (Export Data to PDF/Excel) as UC5
+    (Visualize Sales Data with Interactive Graphs) as UC6
+    (Filter Sales Data by Period) as UC7
+}
+
+package "Advanced Features" {
+    (Manage Multiple Warehouses) as UC8
+    (Analyze Sales Trends) as UC9
+}
+
+' Relationships
+Admin --> UC1 : "Add/Edit/Remove Products\nReal-time DB update"
+Admin --> UC2 : "Monitor product lifecycle\nView status dashboard"
+Admin --> UC3 : "Receive system alerts\nTake corrective action"
+Admin --> UC4 : "Request and review reports"
+Admin --> UC5 : "Export inventory/sales data"
+Admin --> UC6 : "View interactive graphs\nAnalyze sales visually"
+Admin --> UC7 : "Filter data by period\nAnalyze performance"
+Admin --> UC8 : "Create/Edit warehouses\nManage transfers"
+Admin --> UC9 : "Review analytics\nPlan stock/marketing"
+
+User --> UC2 : "View product status"
+User --> UC6 : "View and interact with graphs"
+User --> UC7 : "Filter and analyze sales data"
+
+System --> UC3 : "Automated alerts\nExpiry/shortage checks"
+System --> UC6 : "Aggregate and display data"
+System --> UC9 : "Analyze sales trends\nProvide insights"
+
+@enduml

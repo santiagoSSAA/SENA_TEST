@@ -1,0 +1,61 @@
+@startuml ComponentsDiagram_Main
+
+' Components Diagram: Main System Modules
+' This diagram shows the main components and their relationships, aligned with PRD requirements.
+
+package "UI Layer" {
+  [WebApp UI]
+  [Mobile App UI] <<future>>
+}
+
+package "Application Layer" {
+  [API Gateway]
+  [Authentication Service]
+  [Product Management Service]
+  [Sales Management Service]
+  [Inventory Management Service]
+  [User Management Service]
+  [Report & Analytics Service]
+  [Notification Service]
+  [Invoice Service]
+  [Payment Service] <<future>>
+}
+
+package "Data Layer" {
+  [Database]
+  [Transaction History Log]
+}
+
+' UI Layer interacts with Application Layer
+[WebApp UI] --> [API Gateway]
+[Mobile App UI] ..> [API Gateway] : <<future>>
+
+' API Gateway routes to services
+[API Gateway] --> [Authentication Service]
+[API Gateway] --> [Product Management Service]
+[API Gateway] --> [Sales Management Service]
+[API Gateway] --> [Inventory Management Service]
+[API Gateway] --> [User Management Service]
+[API Gateway] --> [Report & Analytics Service]
+[API Gateway] --> [Notification Service]
+[API Gateway] --> [Invoice Service]
+[API Gateway] ..> [Payment Service] : <<future>>
+
+' Services interact with Data Layer
+[Product Management Service] --> [Database]
+[Sales Management Service] --> [Database]
+[Inventory Management Service] --> [Database]
+[User Management Service] --> [Database]
+[Report & Analytics Service] --> [Database]
+[Report & Analytics Service] --> [Transaction History Log]
+[Invoice Service] --> [Database]
+[Payment Service] ..> [Database] : <<future>>
+
+' Notification and Invoice services
+[Sales Management Service] --> [Notification Service]
+[Invoice Service] --> [Notification Service]
+
+' Inventory Management supports multi-warehouse
+[Inventory Management Service] --> [Database] : Multi-warehouse tables
+
+@enduml
