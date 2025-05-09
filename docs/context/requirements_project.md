@@ -39,10 +39,6 @@ Backend:
 - Base de Datos: PostgreSQL (soporte para datos estructurados y escalabilidad).
 - API REST: Django REST Framework (DRF) para la creación de endpoints.
 
-Frontend:
-- Framework: React.js (para una interfaz moderna y dinámica).
-- Comunicación con Backend: Axios o Fetch API para consumir las APIs REST.
-
 Sincronización Offline:
 - Librería: PouchDB (almacenamiento local y sincronización con CouchDB en el servidor).
 - Integración: Django con CouchDB para manejar datos offline.
