@@ -12,7 +12,9 @@ def get_invoice(db: Session, invoice_id: int):
     return invoice
 
 def create_invoice(db: Session, invoice_data: models.Invoice):
-    invoice = models.Invoice(**invoice_data.dict())
+    # Use only valid fields for the Invoice model
+    valid_data = {key: value for key, value in invoice_data.__dict__.items() if not key.startswith('_')}
+    invoice = models.Invoice(**valid_data)
     db.add(invoice)
     db.commit()
     db.refresh(invoice)

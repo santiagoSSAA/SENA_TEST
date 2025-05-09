@@ -6,7 +6,7 @@ def get_products(db: Session):
     return db.query(models.Product).all()
 
 def create_product(db: Session, product_data):
-    product = models.Product(**product_data)
+    product = models.Product(**product_data.dict())
     db.add(product)
     db.commit()
     db.refresh(product)

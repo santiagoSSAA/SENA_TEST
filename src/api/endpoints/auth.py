@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Body
 from sqlalchemy.orm import Session
 from src.utils.db_session import get_db
 from src.db import schemas, models
@@ -43,5 +43,11 @@ def remove_permission(user_id: int, permission: str, db: Session = Depends(get_d
     db_user.permissions = ",".join(perms)
     db.commit()
     return {"permissions": db_user.permissions.split(",")}
+
+@router.post("/signup", response_model=schemas.UserOut, status_code=status.HTTP_201_CREATED)
+def signup(user: schemas.UserCreate = Body(...), db: Session = Depends(get_db)):
+    user.role="admin"
+    from src.services import user_service
+    return user_service.create_user(db, user)
 
 # Role/permission management endpoints can be expanded as needed.

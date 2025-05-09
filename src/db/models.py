@@ -37,6 +37,7 @@ class Sale(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     quantity = Column(Integer)
     total = Column(Float)
+    timestamp = Column(DateTime, default=datetime.utcnow)  # Add timestamp column
     product = relationship("Product", back_populates="sales")
     user = relationship("User", back_populates="sales")
 
@@ -45,11 +46,13 @@ class Invoice(Base):
     id = Column(Integer, primary_key=True, index=True)
     sale_id = Column(Integer, ForeignKey("sales.id"))
     total = Column(Float)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
 class Notification(Base):
     __tablename__ = "notifications"
     id = Column(Integer, primary_key=True, index=True)
     message = Column(String)
+    timestamp = Column(DateTime, default=datetime.utcnow)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
 
 class TransactionHistory(Base):

@@ -3,6 +3,10 @@ from sqlalchemy.orm import Session
 from src.utils.db_session import get_db
 from src.services import report_service
 from src.utils.security import get_current_user
+from fpdf import FPDF
+import pandas as pd
+from fastapi.responses import FileResponse
+import os
 
 router = APIRouter()
 
@@ -30,3 +34,21 @@ def export_analytics(format: str = "excel", group_by: str = None, db: Session = 
     if format == "pdf":
         return export_to_pdf(rows, filename="analytics.pdf")
     return export_to_excel(rows, filename="analytics.xlsx")
+
+def export_to_pdf(data, filename="report.pdf"):
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    for row in data:
+        line = ", ".join(f"{key}: {value}" for key, value in row.items())
+        pdf.cell(200, 10, txt=line, ln=True)
+
+    pdf.output(filename)
+    return FileResponse(filename, media_type="application/pdf", filename=filename)
+
+def export_to_excel(data, filename="report.xlsx"):
+    df = pd.DataFrame(data)
+    df.to_excel(filename, index=False)
+    return FileResponse(filename, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename=filename)
