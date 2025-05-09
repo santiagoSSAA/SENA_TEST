@@ -1,0 +1,7 @@
+@startuml
+' State Diagram Template
+' Replace with actual states and transitions (pending)
+[*] --> State1
+State1 --> State2 : event
+State2 --> [*]
+@enduml

@@ -41,9 +41,9 @@ This checklist helps you track progress and ensure all checkpoints from the PRD,
 - [ ] Test coverage report
 
 ## 7. Dockerization
-- [ ] Dockerfile for backend
-- [ ] Docker Compose file (if needed for DB, etc.)
-- [ ] Instructions for building and running with Docker
+- [x] Dockerfile for backend
+- [x] Docker Compose file (if needed for DB, etc.)
+- [x] Instructions for building and running with Docker
 
 ## 8. UI (Optional)
 - [ ] Stupidly simple React UI (e.g., create-react-app)

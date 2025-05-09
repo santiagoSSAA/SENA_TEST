@@ -27,13 +27,16 @@ Este manual describe cómo desplegar la aplicación SENA_TEST en un entorno de p
    python src/main.py
    ```
 
-## Despliegue con Docker
-1. Construir y ejecutar los contenedores:
+## Despliegue con Docker Compose (Recomendado)
+1. Desde la raíz del proyecto, construir y ejecutar ambos servicios:
    ```powershell
    docker-compose up --build
    ```
 2. Acceder a la API en http://localhost:8000
 3. Acceder al frontend en http://localhost:3000
+
+## Despliegue con Docker (servicios individuales)
+- Puede construir y ejecutar cada servicio por separado usando sus respectivos Dockerfile.
 
 ## Variables de entorno
 - Configure las variables necesarias en un archivo `.env` si es requerido.

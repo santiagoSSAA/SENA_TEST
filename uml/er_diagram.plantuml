@@ -1,0 +1,17 @@
+@startuml
+' Entity-Relationship Diagram Template
+' Replace with actual entities and relationships (pending)
+entity User {
+  * id : int
+  * name : string
+  * email : string
+}
+
+entity Product {
+  * id : int
+  * name : string
+  * price : float
+}
+
+User ||--o{ Product : purchases
+@enduml

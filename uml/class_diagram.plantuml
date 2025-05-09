@@ -1,0 +1,15 @@
+@startuml
+' Class Diagram Template
+' Replace with actual classes and relationships (pending)
+class ExampleClass {
+  +attribute1: Type
+  -attribute2: Type
+  +method1()
+}
+
+class AnotherClass {
+  +attr: Type
+}
+
+ExampleClass --> AnotherClass : uses
+@enduml
